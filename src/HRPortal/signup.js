@@ -1,10 +1,10 @@
-import { useNavigate,Link } from "react-router-dom/dist";
+import { Link, useNavigate } from "react-router-dom/dist";
 import style from "./signin.module.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function Signin() {
+export default function SignUp() {
   const Navigate = useNavigate();
   const {
     register,
@@ -14,18 +14,16 @@ export default function Signin() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post("http://localhost:8000/auth/login", {
+      const res = await axios.post("http://localhost:8000/auth/signup", {
+        name:data.name,
         email: data.email,
         password: data.password,
       });
       console.log(res.data.message);
-      if (res.data.message === "admin") {
-        toast.success("Admin Login");
-        Navigate("/hr");
-      } else {
-        toast.success("Student Login");
+     
+        toast.success("Signup Successfully");
         Navigate("/student");
-      }
+      
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -49,9 +47,25 @@ export default function Signin() {
             Fee Manage
           </button>
         </div>
-        <p>Sign In</p>
+        <p>Sign Up here...</p>
         <div className="w-100 mb-4">
           <form className="w-100 mb-5" onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-3">
+              <label htmlFor="exampleInputEmail1" className="form-label">
+                Enter Your Name
+              </label>
+              <input
+                {...register("name", { required: true })}
+                type="text"
+                placeholder="Enter Your Name"
+                className="form-control"
+                aria-describedby="emailHelp"
+                name="name"
+              />
+              {errors.name && (
+                <p className="text-danger">Please enter your Name</p>
+              )}
+            </div>
             <div className="mb-3">
               <label htmlFor="exampleInputEmail1" className="form-label">
                 Enter Email address
@@ -85,11 +99,10 @@ export default function Signin() {
               )}
             </div>
             <button className="mt-3 btn btn-primary" type="submit">
-              Login
+              SignUp
             </button>
           </form>
-          <h6 style={{textAlign:"center"}}>Don't have an account? <Link to={"/signup"}>  SignUp</Link></h6>
-
+          <h6 style={{textAlign:"center"}}>Already SignUp? <Link to={"/"}>  Login</Link></h6>
         </div>
       </div>
     </div>

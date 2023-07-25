@@ -139,9 +139,8 @@ function Students() {
                 </td>
                 <td>Phone #</td>
                 <td>Class</td>
-                <td>Status</td>
-                <td>Month</td>
-                <td>Action</td>
+              
+                <td>Detail</td>
                 <td style={{ marginLeft: "40px" }}>Documents</td>
               </tr>
               {students.map((Student, i) => {
@@ -159,8 +158,8 @@ function Students() {
                     </td>
                     <td>{Student.phone}</td>
                     <td>{Student.class}</td>
-                    <td>{Student.status}</td>
-                    <td>{Student.month}</td>
+                    {/* <td>{Student.status}</td>
+                    <td>{Student.month}</td> */}
                     <td>
                       <p
                         onClick={() => {

@@ -13,7 +13,7 @@ function Wellcome(props) {
         <Navbar func={() => {
           setOffcanvas(!offcanvas)
         }} />
-        <SideBar panelName={props.name}/>
+        <SideBar panelName={props.name}/> 
         <HROffcanvas status={offcanvas} />
       </div>
       <div className={style.welcome}>
