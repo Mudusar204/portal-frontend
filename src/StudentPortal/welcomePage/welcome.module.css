@@ -68,3 +68,16 @@
     height: 90% !important;
   }
 }
+
+.formButton{
+  background-color: #DC5A55;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  border-color: white;
+  border-radius: 10px;
+}
+.head{
+ margin-top: 50px;
+ margin-left: 800px;
+}

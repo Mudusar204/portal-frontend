@@ -38,6 +38,7 @@ function App() {
         <Route path="/hr/personalrec" element={<Main />} />
         <Route path="/hr/feeManage" element={<ManageFee />} />
         <Route path="/hr/addstudent" element={<AddStudent />} />
+        <Route path="/student/addstudent" element={<AddStudent />} />
         <Route path="/hr/students" element={<Student />} />
         {/* ////////////////////////////stdent portal//////////////////////// */}
         <Route path='/student' element={<Wellcome name={'Student'}/>}/>

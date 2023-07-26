@@ -15,6 +15,9 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
   cnic: yup
@@ -27,15 +30,17 @@ const schema = yup.object().shape({
     .required("Email is required"),
   phoneNumber: yup
     .string()
-    .matches(/^03\d{2}\d{7}$/, "Phone number is not valid")
+    .matches(/^923\d{2}\d{7}$/, "Phone number is not valid")
     .required("Phone number is required"),
   class: yup.string().required("Class is required"),
+  qualification: yup.string().required("qualification is required"),
+  dob: yup.string().required("Date of Birth is required"),
+  address: yup.string().required("Address is required"),
 });
 
 function AddStudent() {
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
-
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -43,23 +48,22 @@ function AddStudent() {
 
   const handleUpload = () => {
     const formData = new FormData();
-    formData.append('file', selectedFile);
+    formData.append("file", selectedFile);
 
-    // Replace 'http://your-node-server/upload' with your Node.js server endpoint to handle file upload
-    axios.post('http://localhost:8000/upload', formData)
+    axios
+      .post("http://localhost:8000/upload", formData)
       .then((response) => {
-        // Handle successful response from the server if needed
-        console.log(response.data,"uploaded");
+        console.log(response.data, "uploaded");
       })
       .catch((error) => {
-        // Handle error if the upload fails
-        console.log(error,'error')
+        console.log(error, "error");
       });
   };
 
   const {
     handleSubmit,
     control,
+    register,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -67,21 +71,25 @@ function AddStudent() {
 
   const onSubmit = async (data) => {
     try {
-     await handleUpload()
-      // await axios.post("http://localhost:8000/students/addStudent", {
-      //   studentCode: "0",
-      //   name: "tayyab",
-      //   fatherName: "ali",
-      //   cnic: "3300300303",
-      //   email: "tayab@gmail.com",
-      //   phone: "032943434399",
-      //   class: "10th",
-      //   qualification: "inter",
-      //   fees: {},
-      //   address: "204 rb",
-      //   dob: "date of birth",
-      // });
-      toast.success("Successfully Added");
+      console.log(data);
+      // await handleUpload();
+    let res=  await axios.post("http://localhost:8000/students/addStudent", {
+        name: data.name,
+        fatherName: data.fatherName,
+        cnic: data.cnic,
+        email: data.email,
+        phone: data.phoneNumber,
+        class: data.class,
+        qualification: data.qualification,
+
+        address: data.address,
+        dob: data.dob,
+      });
+      if(res.data.message=='added'){
+      toast.success("Successfully Added");}
+      else{
+        toast.error("something went wrong")
+      }
     } catch (error) {
       console.log(error);
       toast.error("Something went worng");
@@ -112,15 +120,6 @@ function AddStudent() {
         </div>
         <div className={style.profile}>
           <img src={profile} alt="" />
-          {/* <div>
-            <input
-              type="file"
-              ref={fileInputRef}
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
-            <img onClick={uploadBtnH} src={edit} alt="" />
-          </div> */}
         </div>
         <div className={style.sec1}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -180,11 +179,20 @@ function AddStudent() {
 
             <div>
               <label className={style.label}>Class:</label>
+
               <Controller
                 name="class"
                 control={control}
                 defaultValue=""
-                render={({ field }) => <input {...field} />}
+                render={({ field }) => (
+                  <select {...field} className={style.select}>
+                    <option></option>
+                    <option>9th</option>
+                    <option>10th</option>
+                    <option>11th</option>
+                    <option>12th</option>
+                  </select>
+                )}
               />
               <p className={style.error}>{errors.class?.message}</p>
             </div>
@@ -195,9 +203,35 @@ function AddStudent() {
                 name="qualification"
                 control={control}
                 defaultValue=""
-                render={({ field }) => <input {...field} />}
+                render={({ field }) => (
+                  <select {...field} className={style.select1}>
+                    <option></option>
+                    <option>Matric</option>
+                    <option>Inter</option>
+                    <option>Graduate</option>
+                    <option>P.H.D</option>
+                  </select>
+                )}
               />
-              <p className={style.error}>{errors.class?.message}</p>
+              <p className={style.error}>{errors.qualification?.message}</p>
+            </div>
+            <div>
+              <label className={style.label}>Date of Birth:</label>
+              <Controller
+                name="dob"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <DatePicker
+                    {...field}
+                    className={style.datePicker} // Add a custom class for styling (optional)
+                    dateFormat="dd/MM/yyyy" // Set the desired date format
+                    selected={field.value} // Set the selected date from the form value
+                    onChange={(date) => field.onChange(date)} // Update the form value when date is selected
+                  />
+                )}
+              />
+              <p className={style.error}>{errors.dob?.message}</p>
             </div>
             <div>
               <label className={style.label}>Address:</label>
@@ -207,20 +241,14 @@ function AddStudent() {
                 defaultValue=""
                 render={({ field }) => <input {...field} />}
               />
-              <p className={style.error}>{errors.class?.message}</p>
-            </div>
-            <div>
-              <label className={style.label}>Date of Birth:</label>
-              <Controller
-                name="dob"
-                control={control}
-                defaultValue=""
-                render={({ field }) => <input {...field} />}
-              />
-              <p className={style.error}>{errors.class?.message}</p>
+              <p className={style.error}>{errors.address?.message}</p>
             </div>
 
-            <input type="file" onChange={handleFileChange} />
+            <input
+              className={style.file}
+              type="file"
+              onChange={handleFileChange}
+            />
             <div className={style.btns}>
               <div>
                 <button type="submit">Submit</button>

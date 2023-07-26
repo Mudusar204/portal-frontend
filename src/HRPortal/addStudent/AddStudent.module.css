@@ -102,7 +102,7 @@ background: #FAFAFA;
   }
 }
 .sec1 input {
-  padding: 18px 22px;
+  padding: 10px 5px;
   border: 0;
   outline: 0;
   border-radius: 10px;
@@ -223,9 +223,30 @@ line-height: normal;
 .error{
   color: #ee201c;
   font-size: smaller;
+  margin-left: 20px;
+  padding-bottom: 5px;
 }
 
 .label{
   padding-left: 20px;
   font-weight: bold;
+}
+.select{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 85%;
+  border: none;
+  
+}
+.select1{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 72%;
+  border: none;
+  
+}
+.file{
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-left: 150px;
 }
