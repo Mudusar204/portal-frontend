@@ -73,7 +73,7 @@ function AddStudent() {
     try {
       console.log(data);
       // await handleUpload();
-    let res=  await axios.post("http://localhost:8000/students/addStudent", {
+    let res=  await axios.post("http://localhost:8000/student/addApplication", {
         name: data.name,
         fatherName: data.fatherName,
         cnic: data.cnic,

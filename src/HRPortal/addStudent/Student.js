@@ -18,7 +18,7 @@ function Students() {
   console.log(students,'from component');
   useEffect(() => {
     dispatch(getStudents());
-  }, []);
+  }, []); 
   const [offcanvas, setOffcanvas] = useState(false);
   let sampleData = {
     code: "3310",
