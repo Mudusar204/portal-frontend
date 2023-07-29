@@ -28,6 +28,9 @@ const DropDowns = (props) => {
         setIndicator(e)
         navigate(e)
     }
+    const studentProfile=()=>{
+        navigate('/student/studentProfile')
+    }
     return (
         <div className={style.parent}>
             <div className={style.dropdown}>
@@ -42,9 +45,10 @@ const DropDowns = (props) => {
                 </div>
                 {isOpen ? <div className={style.optsParent}>
                     <ul className={style.opts}>
-                        <li className={indicator === '/student/studentProfile' ? style.checkedli : null} onClick={() => indicatorManager('/student/studentProfile')}>
+                        {/* <li className={indicator === '/student/studentProfile' ? style.checkedli : null} onClick={() => indicatorManager('/student/studentProfile')}> */}
+                         <li onClick={studentProfile}>
                             <img src={user} alt="" />
-                            Students
+                            Profile
                         </li>
                         {/* <li className={indicator === '/hr/applications' ? style.checkedli : null} onClick={() => indicatorManager('/hr/applications')}>
                             <img src={copyPaste} alt="" />

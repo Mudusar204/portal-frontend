@@ -48,18 +48,15 @@ function Applications() {
           func={() => {
             setOffcanvas(!offcanvas);
           }}
-        />
+        /> 
         <SideBar panelName={"Admin"} />
         <HROffcanvas status={offcanvas} />
       </div>
       <div className={style.subparent}>
         <ProfileUser path="/hr/profile" />
-        <div className={style.searchbar}>
-          <div className={style.sec1}>
-            <img src={search} alt="" />
-            <input type="text" placeholder="Search Training by name" />
-          </div>
-        </div>
+        <p style={{fontSize:"40px",fontWeight:"bold",color:"#E6635A",textAlign:"center",marginTop:"100px",paddingBottom:"20px"}}>Applications</p>
+          
+    
         <div className={style.tableParent}>
           <table className={style.table}>
             <tr className={style.headers}>
@@ -72,7 +69,7 @@ function Applications() {
               <td>Reject</td>
               <td>Approve</td>
             </tr>
-            {application.map((application, i) => {
+            {application.length!==0?application.map((application, i) => {
               return (
                 <tr className={style.tablebody} key={i}>
                   <td className={style.textStyle1}>
@@ -94,13 +91,11 @@ function Applications() {
                   </td>
                 </tr>
               );
-            })}
+            }):<p className={style.noApplication}>No Application</p>}
           </table>
         </div>
         <div className={style.next}>
-          {/* <button>
-                        {next}
-                    </button> */}
+        
         </div>
       </div>
     </div>

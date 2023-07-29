@@ -7,7 +7,7 @@
   border-radius: 0.3125rem;
   background: linear-gradient(180deg, #ee6a5f 0%, rgba(194, 36, 36, 0.81) 100%);
   margin-top: 15px;
-  margin: 15px auto;
+  margin: 15px;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -38,13 +38,13 @@
   border-radius: 1.5rem;
   width: 1.5rem;
   height: 1.5rem;
-  flex-grow: 0 !important ;
+  /* flex-grow: 0 !important ; */
   background-color: rgba(253, 189, 164, 0.38);
   display: flex;
   justify-content: center;
   align-items: center;
   justify-self: flex-end;
-  margin-left: 3rem;
+  /* margin-left: 3rem; */
   cursor: pointer;
 }
 

@@ -3,8 +3,10 @@ import style from "./signin.module.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { setUserEmail } from "../store/studentSlice";
+import { useDispatch } from "react-redux";
 export default function Signin() {
+  const dispatch=useDispatch()
   const Navigate = useNavigate();
   const {
     register,
@@ -13,17 +15,20 @@ export default function Signin() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    let message=""
     try {
       const res = await axios.post("http://localhost:8000/auth/login", {
         email: data.email,
         password: data.password,
       });
+      message=res.data.message
       console.log(res.data.message);
       if (res.data.message === "admin") {
         toast.success("Admin Login");
         Navigate("/hr");
       } else {
         toast.success("Student Login");
+        dispatch(setUserEmail(data.email))
         Navigate("/student");
       }
       console.log(data);

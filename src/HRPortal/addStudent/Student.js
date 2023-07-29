@@ -15,35 +15,11 @@ import EmployeeProfile from "../students/StudentProfile";
 function Students() {
   const dispatch = useDispatch();
   const students = useSelector((state) => state.studentSlice.studentList);
-  console.log(students,'from component');
+  console.log(students, "from component");
   useEffect(() => {
     dispatch(getStudents());
-  }, []); 
+  }, []);
   const [offcanvas, setOffcanvas] = useState(false);
-  let sampleData = {
-    code: "3310",
-    name: "Asmer Naeem",
-    img: avatar,
-    cnic: "3310297413939",
-    phone: "03154316991",
-    email: "Emetowinner@gmail.com",
-    class: "IT",
-    status: "submit",
-    month: "january",
-  };
-
-  let data = [
-    sampleData,
-    sampleData,
-    sampleData,
-    sampleData,
-    sampleData,
-    sampleData,
-    sampleData,
-    sampleData,
-    sampleData,
-    sampleData,
-  ];
 
   let next = "Next page >>";
   const navigate = useNavigate();
@@ -133,15 +109,11 @@ function Students() {
                 <td>Student Code</td>
                 <td>Student Name</td>
                 <td style={{ whiteSpace: "nowrap" }}>CNIC / B-Form</td>
-                <td>
-                  {" "}
-                  <p style={{ marginLeft: 10 }}></p>Email
-                </td>
+                <td>Email</td>
                 <td>Phone #</td>
                 <td>Class</td>
-              
                 <td>Detail</td>
-                <td style={{ marginLeft: "40px" }}>Documents</td>
+                <td>Documents</td>
               </tr>
               {students.map((Student, i) => {
                 return (
@@ -179,11 +151,7 @@ function Students() {
             </table>
           </div>
         )}
-        {/* <div className={style.next}>
-                    <button>
-                        {next}
-                    </button>
-                </div> */}
+      
       </div>
     </div>
   );

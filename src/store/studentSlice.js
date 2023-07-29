@@ -3,9 +3,12 @@ import { toast } from "react-toastify";
 import axios from "axios";
 const counterSlice = createSlice({
   name: "counter",
-  initialState: { studentList: [] ,applications:[]},
+  initialState: { studentList: [] ,applications:[],userEmail:""},
   reducers: {
-   
+   setUserEmail(state,action){
+state.userEmail=action.payload
+console.log(action.payload);
+   }
   },
   extraReducers: (builder) => {
     builder
@@ -59,11 +62,23 @@ const counterSlice = createSlice({
       .addCase(deleteApplication.rejected, (state, action) => {
         toast.dismiss();
         toast.error("Could not Delete");
+      })
+
+      .addCase(payFees.pending, (state, action) => {})
+      .addCase(payFees.fulfilled, (state, action) => {
+        if(action.payload!==null && action.payload!==undefined){
+        state.applications = action.payload;
+        toast.dismiss();
+        toast.success("Successfully Payed");}
+      })
+      .addCase(payFees.rejected, (state, action) => {
+        toast.dismiss();
+        toast.error("Could not Pay ");
       });
   },
 });
 
-export const { increment, decrement } = counterSlice.actions;
+export const { setUserEmail } = counterSlice.actions;
 
 export default counterSlice.reducer;
 
@@ -135,6 +150,24 @@ export const deleteApplication = createAsyncThunk(
         );
         console.log(applicationList.data, "student from store");
         return applicationList.data.applications;
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+
+export const payFees = createAsyncThunk(
+  "payFees",
+  async (dispatch, thunkAPI) => {
+    console.log(dispatch,'disapatch');
+    try {
+        const payFees = await axios.post( 
+          "http://localhost:8000/student/payFees",{email:dispatch.email,month:dispatch.month}
+        );
+        console.log(payFees.data, "fees list form store");
+        return payFees.data.message
       
     } catch (error) {
       console.log(error);

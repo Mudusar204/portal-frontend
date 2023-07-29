@@ -13,7 +13,7 @@ import Signin from './HRPortal/signin';
 import SignUp from './HRPortal/signup'
 //////////////////////////student portal/////////////////
 import Wellcome from './StudentPortal/welcomePage/Wellcome';
-
+import StudentIndividual from './StudentPortal/components/students/StudentProfile'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -42,7 +42,7 @@ function App() {
         <Route path="/hr/students" element={<Student />} />
         {/* ////////////////////////////stdent portal//////////////////////// */}
         <Route path='/student' element={<Wellcome name={'Student'}/>}/>
-        <Route path="/student/studentProfile" element={<StudentProfile name={"Student"}/>} />
+        <Route path="/student/studentProfile" element={<StudentIndividual name={"Student"}/>} />
 
 
       </Routes>

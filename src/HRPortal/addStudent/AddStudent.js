@@ -73,22 +73,25 @@ function AddStudent() {
     try {
       console.log(data);
       // await handleUpload();
-    let res=  await axios.post("http://localhost:8000/student/addApplication", {
-        name: data.name,
-        fatherName: data.fatherName,
-        cnic: data.cnic,
-        email: data.email,
-        phone: data.phoneNumber,
-        class: data.class,
-        qualification: data.qualification,
+      let res = await axios.post(
+        "http://localhost:8000/student/addApplication",
+        {
+          name: data.name,
+          fatherName: data.fatherName,
+          cnic: data.cnic,
+          email: data.email,
+          phone: data.phoneNumber,
+          class: data.class,
+          qualification: data.qualification,
 
-        address: data.address,
-        dob: data.dob,
-      });
-      if(res.data.message=='added'){
-      toast.success("Successfully Added");}
-      else{
-        toast.error("something went wrong")
+          address: data.address,
+          dob: data.dob,
+        }
+      );
+      if (res.data.message == "added") {
+        toast.success("Successfully Added");
+      } else {
+        toast.error("something went wrong");
       }
     } catch (error) {
       console.log(error);
@@ -99,12 +102,7 @@ function AddStudent() {
   return (
     <div className={style.parent}>
       <div className={style.sidebar}>
-        <Navbar
-        // func={() => {
-        //   setOffcanvas(!offcanvas);
-        // }}
-        />
-        {/* <HROffcanvas status={offcanvas} /> */}
+        <Navbar />
         <HROffcanvas />
         <SideBar panelName={"Admin"} />
       </div>
@@ -222,12 +220,10 @@ function AddStudent() {
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <DatePicker
+                  <input
+                    type="date"
+                    // value={date}
                     {...field}
-                    className={style.datePicker} // Add a custom class for styling (optional)
-                    dateFormat="dd/MM/yyyy" // Set the desired date format
-                    selected={field.value} // Set the selected date from the form value
-                    onChange={(date) => field.onChange(date)} // Update the form value when date is selected
                   />
                 )}
               />

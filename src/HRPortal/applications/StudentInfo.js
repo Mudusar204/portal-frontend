@@ -110,24 +110,9 @@ function Info(props) {
 
                             </div>
                         </div>
-                        {/* <div className={style.cardsBtn}>
-                            <div className={style.cardbtn1}><p className={style.btntxt}>Images</p> <input
-                                type="file"
-                                ref={fileInputRef}
-                                style={{ display: 'none' }}
-                                onChange={handleFileChange}
-                            /><button onClick={uploadBtnH}>Upload</button></div>
-                            <div className={style.cardbtn2}><p className={style.btntxt}>Training Material</p><button>Download</button></div>
-
-                        </div> */}
+                      
                     </div>
-                    {/* <div className={style.bottomside}>
-                        <p className={style.bheading}>Employess who are getting trained</p>
-                        <button onClick={() => {
-                            navigate('/hr/trainedemployees')
-                        }} className={style.bottombtn}>Click Here</button>
-
-                    </div> */}
+                   
                 </div>
             </div>
             {

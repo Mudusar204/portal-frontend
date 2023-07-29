@@ -1,65 +1,61 @@
 import SideBar from "../../components/sidebar/SideBar";
-import user from "../../assets/images/hrprofile/user.svg";
-import selectImg from "../../assets/images/hrprofile/selectImg.svg";
-import mail from "../../assets/images/hrprofile/mail.svg";
-import Phone from "../../assets/images/studentProfile/Phone.svg";
-import copyp from "../../assets/images/studentProfile/CopyP.svg";
-import Location from "../../assets/images/studentProfile/Location.svg";
-import Office from "../../assets/images/studentProfile/Office.svg";
-import UserCard from "../../assets/images/studentProfile/UserCard.svg";
-import Calendar from "../../assets/images/studentProfile/Calendar.svg";
-import man from "../../assets/images/hrprofile/man.svg";
-import { useRef, useState } from "react";
+import user from "../../../assets/images/hrprofile/user.svg";
+import selectImg from "../../../assets/images/hrprofile/selectImg.svg";
+import mail from "../../../assets/images/hrprofile/mail.svg";
+import Phone from "../../../assets/images/studentProfile/Phone.svg";
+import copyp from "../../../assets/images/studentProfile/CopyP.svg";
+import Location from "../../../assets/images/studentProfile/Location.svg";
+import Office from "../../../assets/images/studentProfile/Office.svg";
+import UserCard from "../../../assets/images/studentProfile/UserCard.svg";
+import Calendar from "../../../assets/images/studentProfile/Calendar.svg";
+import man from "../../../assets/images/hrprofile/man.svg";
+import { useEffect, useRef, useState } from "react";
 import style from "./hrprofile.module.css";
 import style2 from "./StudentProfile.module.css";
-import ProfileUser from "../../components/profileUser/ProfileUser";
-import HROffcanvas from "../../components/offcanvas/HROffcanvas";
-import Navbar from "../../components/navbar/Navbar";
+import ProfileUser from "../../../components/profileUser/ProfileUser";
+import HROffcanvas from "../../../components/offcanvas/HROffcanvas";
+import Navbar from "../../../components/navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
 function EmployeeProfile(props) {
-  const { studentId } = useParams();
-  const students = useSelector((state) => state.studentSlice.studentList);
+  const userEmail = useSelector((state) => state.studentSlice.userEmail);
+  const [individualStudent, setIndividualStudent] = useState({});
+  const [check, setCheck] = useState(false);
+  useEffect(() => {
+    getStudent();
+  }, []);
 
-  console.log(students, "studentList", studentId);
-  const individualStudent = students[studentId];
-  console.log(individualStudent);
-  const [offcanvas, setOffcanvas] = useState(false);
-  const [data, setdata] = useState([
-    { month: "January", status: "mpaid" },
-    { month: "January", status: "paid" },
-    { month: "January", status: "paid" },
-  ]);
-  const fileInputRef = useRef(null);
-
-  const uploadBtnH = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleFileChange = (event) => {
-    const files = event.target.files;
-    // Process the selected file(s) or perform any desired actions
-    for (let i = 0; i < files.length; i++) {
-      console.log(files[i]);
-      // Perform further actions with the file(s) such as uploading, validating, etc.
+  // setTimeout(() => {
+  // }, 3000);
+  const getStudent = async () => {
+    try {
+      const student = await axios.post(
+        "http://localhost:8000/student/getIndividualStudent",
+        { email: userEmail }
+      );
+      console.log(student.data, "fees list form store");
+      if (student.data.response) {
+        setIndividualStudent(student.data.response);
+        setCheck(true);
+      }
+    } catch (error) {
+      console.log(error, "jflksjdlkfjlkdfjlksd");
     }
   };
+
   const navigate = useNavigate();
 
   return (
     <div className={style.parent}>
       <div className={`${style.sidebar}`}>
-        <Navbar
-          func={() => {
-            setOffcanvas(!offcanvas);
-          }}
-        />
+        <Navbar />
         <SideBar panelName={props.name} />
-        <HROffcanvas status={offcanvas} />
+        <HROffcanvas />
       </div>
-      {true ? (
+      {check ? (
         <div className={style.profile}>
           <ProfileUser path="/hr/profile" />
           <p>Student Profile</p>
@@ -75,15 +71,6 @@ function EmployeeProfile(props) {
             </div>
             <div>
               <img src={user} alt="" />
-            </div>
-            <div>
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
-              <img onClick={uploadBtnH} src={selectImg} alt="" />
             </div>
           </div>
           <div className={style2.cardParent}>
@@ -227,8 +214,14 @@ function EmployeeProfile(props) {
                   );
                 })}
               </table>
-              <div style={{marginTop:"30px"}} className={style2.btns}>
-                <button onClick={()=>{window.print()}}>Print</button>
+              <div style={{ marginTop: "30px" }} className={style2.btns}>
+                <button
+                  onClick={() => {
+                    window.print();
+                  }}
+                >
+                  Print
+                </button>
                 <button>Download Info</button>
               </div>
             </div>

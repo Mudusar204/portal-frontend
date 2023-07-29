@@ -25,7 +25,7 @@
 .sec1 {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 86px;
   flex-wrap: wrap;
   width: 80%;
@@ -120,7 +120,7 @@
 }
 .headers > td:nth-child(1),
 .tablebody > td:nth-child(1) {
-  width: 270px;
+  width: 140px;
 }
 .headers > td:nth-child(2),
 .tablebody > td:nth-child(2) {
@@ -166,6 +166,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: 6px;
+  padding-left: 50px;
 }
 .tablebody > td:nth-child(3) {
   display: flex;
@@ -250,6 +251,15 @@
   align-items: center;
   gap: 6px;
   width: 170px;
+  /* padding-left: ; */
+}
+.tablebody > td:nth-child(15) {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+  width: 170px;
+  /* padding-left: ; */
 }
 .tablebody > td:nth-child(1) > p {
   color: #2b5ce6;

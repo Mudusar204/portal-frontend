@@ -36,7 +36,7 @@ const DropDowns = (props) => {
                         <img src={profile} alt="" />
                     </div>
                     <p style={{whiteSpace:'nowrap'}}>{props.panelName} Panel</p>
-                    <div onClick={toggleDropdown} style={{marginLeft:"120px"}}>
+                    <div onClick={toggleDropdown} style={{marginLeft:"40px"}}>
                         <img  className={isOpen ? style.rotate : style.notrotate} src={arrow} alt="" />
                     </div>
                 </div>
