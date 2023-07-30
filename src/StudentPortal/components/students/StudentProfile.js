@@ -24,6 +24,9 @@ function EmployeeProfile(props) {
   const userEmail = useSelector((state) => state.studentSlice.userEmail);
   const [individualStudent, setIndividualStudent] = useState({});
   const [check, setCheck] = useState(false);
+  const [loader,setLoader]=useState(false)
+setTimeout(()=>{setLoader(true)},5000)
+
   useEffect(() => {
     getStudent();
   }, []);
@@ -237,18 +240,19 @@ function EmployeeProfile(props) {
             width: "100%",
           }}
         >
-          <Oval
-            height={80}
-            width={80}
-            color="#e0a4a3"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-            ariaLabel="oval-loading"
-            secondaryColor="#e0a4a3"
-            strokeWidth={3}
-            strokeWidthSecondary={3}
-          />
+          {!loader?
+            <Oval
+              height={80}
+              width={80}
+              color="#e0a4a3"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#e0a4a3"
+              strokeWidth={3}
+              strokeWidthSecondary={3}
+            />:<p style={{fontWeight:"bold",fontSize:"40px"}}>You Have No Profile Yet!</p>}
         </div>
       )}
     </div>

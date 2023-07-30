@@ -104,8 +104,8 @@ export const getStudents = createAsyncThunk(
   async (dispatch, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
-      console.log(state);
-      if (state.studentSlice.studentList.length === 0) {
+      console.log(dispatch);
+      if (state.studentSlice.studentList.length === 0||dispatch!==undefined) {
         const studentList = await axios.get( 
           "http://localhost:8000/student/getStudent"
         );

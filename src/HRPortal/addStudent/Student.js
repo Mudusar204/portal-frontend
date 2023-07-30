@@ -16,9 +16,9 @@ function Students() {
   const dispatch = useDispatch();
   const [search,setSearch]=useState('')
   const studentsList = useSelector((state) => state.studentSlice.studentList);
-
+const [check,setCheck]=useState(false)
   let students=studentsList
-
+setTimeout(()=>{setCheck(true)},5000)
 
   // function compareByClass(a, b) {
   //   if (a.class > b.class) {
@@ -122,6 +122,7 @@ function Students() {
               height: "70vh",
             }}
           >
+            {!check?
             <Oval
               height={80}
               width={80}
@@ -133,7 +134,7 @@ function Students() {
               secondaryColor="#e0a4a3"
               strokeWidth={3}
               strokeWidthSecondary={3}
-            />
+            />:<p style={{fontWeight:"bold",fontSize:"40px"}}>No Record Found</p>}
           </div>
         ) : (
           <div className={style.tableParent2}>
@@ -157,7 +158,7 @@ function Students() {
                     <td>
                       <img src={Student.img} alt="" /> {Student.name}
                     </td>
-                    <td>{Student.cnic}</td>
+                    <td style={{whiteSpace:"nowrap"}}>{Student.cnic}</td>
                     <td>
                       <p style={{ marginLeft: 20 }}>{Student.email}</p>
                     </td>

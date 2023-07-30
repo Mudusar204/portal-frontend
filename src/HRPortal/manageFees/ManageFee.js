@@ -15,6 +15,9 @@ function ManageFee() {
   const dispatch = useDispatch();
   const students = useSelector((state) => state.studentSlice.studentList);
   const [search, setSearch] = useState("");
+  const [check,setCheck]=useState(false)
+
+setTimeout(()=>{setCheck(true)},5000)
 
   function searchByName(searchTerm) {
     // Convert the search term to lowercase for case-insensitive search
@@ -255,6 +258,7 @@ function ManageFee() {
               height: "70vh",
             }}
           >
+             {!check?
             <Oval
               height={80}
               width={80}
@@ -266,7 +270,7 @@ function ManageFee() {
               secondaryColor="#e0a4a3"
               strokeWidth={3}
               strokeWidthSecondary={3}
-            />
+            />:<p style={{fontWeight:"bold",fontSize:"40px"}}>No Record Found</p>}
           </div>
         )}
         <div className={style.next}>

@@ -14,7 +14,7 @@ const FeeVoucherForm = (props) => {
   const onSubmit = async(data) => {
     // Handle form submission here, e.g., send the data to the server
   await  dispatch(payFees({email:data.studentEmail,month:data.month}))
-  // dispatch(getStudents());
+  dispatch(getStudents("pay"));
 
   props.fun()
     console.log(data);
@@ -94,12 +94,12 @@ const FeeVoucherForm = (props) => {
         <label htmlFor="studentCnic">Student CNIC</label>
         <Controller
           name="studentCnic"
-          control={control}
+          control={control} 
           defaultValue={props.data.studentCinc}
           rules={{
             required: "Student CNIC is required",
             pattern: {
-              value: /^[0-9]{13}$/,
+              value: /^\d{5}-\d{7}-\d$/,
               message: "Invalid CNIC format",
             },
           }}

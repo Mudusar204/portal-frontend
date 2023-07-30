@@ -152,7 +152,7 @@ function AddStudent() {
                 name="cnic"
                 control={control}
                 defaultValue=""
-                render={({ field }) => <input {...field} />}
+                render={({ field }) => <input placeholder="33100-1010101-1" {...field} />}
               />
               <p className={style.error}>{errors.cnic?.message}</p>
             </div>
@@ -163,7 +163,7 @@ function AddStudent() {
                 name="email"
                 control={control}
                 defaultValue=""
-                render={({ field }) => <input {...field} />}
+                render={({ field }) => <input placeholder="test@gamail.com" {...field} />}
               />
               <p className={style.error}>{errors.email?.message}</p>
             </div>
@@ -171,10 +171,11 @@ function AddStudent() {
             <div>
               <label className={style.label}>Phone:</label>
               <Controller
+              
                 name="phoneNumber"
                 control={control}
                 defaultValue=""
-                render={({ field }) => <input {...field} />}
+                render={({ field }) => <input placeholder="923........." {...field} />}
               />
               <p className={style.error}>{errors.phoneNumber?.message}</p>
             </div>

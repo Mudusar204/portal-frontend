@@ -51,7 +51,7 @@ const DropDowns = (props) => {
                             Application</li>
                         <li className={indicator === 'c' ? style.checkedli : null} onClick={() => indicatorManager('/hr/feeManage')}>
                             <img src={pageS} alt="" />
-                            Manage Feeses</li>
+                            Manage Fee</li>
                        
                     </ul>
                 </div> : null}
