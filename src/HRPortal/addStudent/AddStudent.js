@@ -93,7 +93,7 @@ function AddStudent() {
       );
       if (res.data.message == "added") {
         toast.success("Successfully Added");
-        // navigate("/hr")
+        navigate("/hr")
       } else {
         toast.error("something went wrong");
       }
