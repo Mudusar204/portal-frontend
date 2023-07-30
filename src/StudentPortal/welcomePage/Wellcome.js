@@ -7,7 +7,7 @@ import HROffcanvas from "../../components/offcanvas/HROffcanvas";
 import { useNavigate } from "react-router-dom";
 
 function Wellcome(props) {
-  const Navigate=useNavigate()
+  const navigate=useNavigate()
   const [offcanvas, setOffcanvas] = useState(false);
   return (
     <div className={`${style.parent}`}>
@@ -22,7 +22,7 @@ function Wellcome(props) {
       </div>
       <div className={style.welcome}>
       <div className={style.head}>
-          <button onClick={()=>{Navigate("/student/addstudent")}} className={style.formButton}>Addmission Form</button>
+          <button onClick={()=>{navigate("/student/addstudent")}} className={style.formButton}>Admission Form</button>
         </div>
        
         <img src={welcomeImg} alt="" />

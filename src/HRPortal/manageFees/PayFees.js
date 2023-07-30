@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { payFees } from "../../store/studentSlice";
+import { payFees ,getStudents} from "../../store/studentSlice";
 import { useDispatch,useSelector } from "react-redux";
 const FeeVoucherForm = (props) => {
     const dispatch=useDispatch()
@@ -14,6 +14,8 @@ const FeeVoucherForm = (props) => {
   const onSubmit = async(data) => {
     // Handle form submission here, e.g., send the data to the server
   await  dispatch(payFees({email:data.studentEmail,month:data.month}))
+  // dispatch(getStudents());
+
   props.fun()
     console.log(data);
   };
@@ -118,7 +120,7 @@ const FeeVoucherForm = (props) => {
           defaultValue=""
           render={({ field }) => (
             <select {...field} style={{ width: "100%", padding: "5px" }}>
-              {/* <option>Month</option> */}
+              <option>Month</option>
               <option>January</option>
               <option>February</option>
               <option>March</option>

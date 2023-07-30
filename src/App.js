@@ -14,7 +14,7 @@ import SignUp from './HRPortal/signup'
 //////////////////////////student portal/////////////////
 import Wellcome from './StudentPortal/welcomePage/Wellcome';
 import StudentIndividual from './StudentPortal/components/students/StudentProfile'
-
+import AddStudentNew from './StudentPortal/components/addStudent/AddStudentNew';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {store}  from './store/store'
@@ -38,11 +38,12 @@ function App() {
         <Route path="/hr/personalrec" element={<Main />} />
         <Route path="/hr/feeManage" element={<ManageFee />} />
         <Route path="/hr/addstudent" element={<AddStudent />} />
-        <Route path="/student/addstudent" element={<AddStudent />} />
+        {/* <Route path="/student/addstudent" element={<AddStudent />} /> */}
         <Route path="/hr/students" element={<Student />} />
-        {/* ////////////////////////////stdent portal//////////////////////// */}
+        {/* ////////////////////////////stdent portal//////////////////////// */} 
         <Route path='/student' element={<Wellcome name={'Student'}/>}/>
         <Route path="/student/studentProfile" element={<StudentIndividual name={"Student"}/>} />
+        <Route path="/student/addstudent" element={<AddStudentNew name={"Student"} />} />
 
 
       </Routes>

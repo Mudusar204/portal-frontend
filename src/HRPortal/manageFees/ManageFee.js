@@ -5,21 +5,35 @@ import ProfileUser from "../../components/profileUser/ProfileUser";
 import Select from "../../components/select/Select";
 import Navbar from "../../components/navbar/Navbar";
 import HROffcanvas from "../../components/offcanvas/HROffcanvas";
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import CustomModal from "../../components/modal/Modal";
-import { useSelector ,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Oval } from "react-loader-spinner";
 import { getStudents } from "../../store/studentSlice";
 
 function ManageFee() {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const students = useSelector((state) => state.studentSlice.studentList);
+  const [search, setSearch] = useState("");
+
+  function searchByName(searchTerm) {
+    // Convert the search term to lowercase for case-insensitive search
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+    // Filter the array to find objects with matching names
+    const filteredArray = students.filter((obj) =>
+      obj.name.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+
+    return filteredArray;
+  }
+  const searchResults = searchByName(search);
 
   console.log(students);
   useEffect(() => {
     dispatch(getStudents());
-  }, []); 
-  
+  }, []);
+
   const [offcanvas, setOffcanvas] = useState(false);
   const [isOpen, setOpen] = useState(false);
   let next = "Next page >>";
@@ -38,17 +52,38 @@ function ManageFee() {
       <div className={style.subparent}>
         <div className={style.searchbar}>
           <div className={style.sec1}>
-          
-            <p style={{fontSize:"40px",fontWeight:"bold",color:"#E6635A",marginLeft:"100px"}}>Manage Fee</p>
+            <p
+              style={{
+                fontSize: "40px",
+                fontWeight: "bold",
+                color: "#E6635A",
+                marginLeft: "100px",
+              }}
+            >
+              Manage Fee
+            </p>
           </div>
           <div className={style.next}>
-           
-            <button onClick={()=>{window.print()}}  className={style.download}>
+            <button
+              onClick={() => {
+                window.print();
+              }}
+              className={style.download}
+            >
               Print
             </button>
-          
           </div>
         </div>
+        <p>
+          <input
+            className={style.input}
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            placeholder="Search here by Name"
+          />
+        </p>
 
         {students.length !== 0 ? (
           <div className={style.tableParent2}>
@@ -71,101 +106,175 @@ function ManageFee() {
                 <td>Fee Voucher</td>
                 <td>Pay Fees</td>
               </tr>
-              {students.map((student, i) => {
+              {searchResults.map((student, i) => {
                 console.log(i);
                 return (
                   <tr className={style.tablebody} key={i}>
                     <td>
-                      <p >{student.studentCode}</p>
+                      <p>{student.studentCode}</p>
                     </td>
                     <td>
                       <p>{student.name}</p>
                     </td>
-                    <td style={student.fees[0].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[0].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[0].status}
                     </td>
-                    <td style={student.fees[1].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[1].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[1].status}
                     </td>
-                    <td style={student.fees[2].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[2].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[2].status}
                     </td>
-                    <td style={student.fees[3].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[3].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[3].status}
                     </td>
-                    <td style={student.fees[4].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[4].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[4].status}
                     </td>
-                    <td style={student.fees[5].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[5].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[5].status}
                     </td>
-                    <td style={student.fees[6].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[6].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[6].status}
                     </td>
-                    <td style={student.fees[7].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[7].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[7].status}
                     </td>
-                    <td style={student.fees[8].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[8].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[8].status}
                     </td>
-                    <td style={student.fees[9].status?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[9].status
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[9].status}
                     </td>
-                    <td style={student.fees[10].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[10].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[10].status}
                     </td>
-                    <td style={student.fees[11].status==="Not Submitted"?{color:"red"}:{color:"green"}}>
+                    <td
+                      style={
+                        student.fees[11].status === "Not Submitted"
+                          ? { color: "red" }
+                          : { color: "green" }
+                      }
+                    >
                       {student.fees[11].status}
                     </td>
                     <td>
                       <div className={style.next}>
-                        <CustomModal name={"Generate"}/>
+                        <CustomModal name={"Generate"} />
                       </div>
                     </td>
-                    <td> <div className={style.next}>
-                        <CustomModal  name={"Pay"} studentName={student.name} studentCode={student.studentCode} studentCinc={student.cnic} studentEmail={student.email}/>
-                      </div></td>
+                    <td>
+                      {" "}
+                      <div className={style.next}>
+                        <CustomModal
+                          name={"Pay"}
+                          studentName={student.name}
+                          studentCode={student.studentCode}
+                          studentCinc={student.cnic}
+                          studentEmail={student.email}
+                        />
+                      </div>
+                    </td>
                   </tr>
                 );
               })}
             </table>
           </div>
         ) : (
-       
-
           <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "70vh",
-          }}
-        >
-          <Oval
-            height={80}
-            width={80}
-            color="#e0a4a3"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-            ariaLabel="oval-loading"
-            secondaryColor="#e0a4a3"
-            strokeWidth={3}
-            strokeWidthSecondary={3}
-          />
-        </div>
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "70vh",
+            }}
+          >
+            <Oval
+              height={80}
+              width={80}
+              color="#e0a4a3"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#e0a4a3"
+              strokeWidth={3}
+              strokeWidthSecondary={3}
+            />
+          </div>
         )}
         <div className={style.next}>
           {isOpen ? (
-            <button
-              onClick={() => setOpen(false)}
-              className={style.download}
-            >
+            <button onClick={() => setOpen(false)} className={style.download}>
               Submit
             </button>
-
           ) : null}
-        
         </div>
       </div>
     </div>

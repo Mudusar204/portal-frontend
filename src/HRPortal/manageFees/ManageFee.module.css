@@ -366,3 +366,13 @@
   align-items: center;
   margin-right: 4px;
 }
+.input{
+  width: 92%;
+  outline: none;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-left: 20px;
+  padding: 10px;
+ 
+}

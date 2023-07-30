@@ -1,13 +1,13 @@
-import SideBar from "../../components/sidebar/SideBar";
+import SideBar from "../sidebar/SideBar";
 import style from "./AddStudent.module.css";
-import edit from "../../assets/images/addStudent/edit.svg";
-import profile from "../../assets/images/addStudent/prof.svg";
-import ProfileUser from "../../components/profileUser/ProfileUser";
-import copyP from "../../assets/images/studentProfile/CopyP.svg";
-import Office from "../../assets/images/studentProfile/Office.svg";
-import msg from "../../assets/images/hrprofile/mail.svg";
-import HROffcanvas from "../../components/offcanvas/HROffcanvas";
-import Navbar from "../../components/navbar/Navbar";
+import edit from "../../../assets/images/addStudent/edit.svg";
+import profile from "../../../assets/images/addStudent/prof.svg";
+import ProfileUser from "../../../components/profileUser/ProfileUser";
+import copyP from "../../../assets/images/studentProfile/CopyP.svg";
+import Office from "../../../assets/images/studentProfile/Office.svg";
+import msg from "../../../assets/images/hrprofile/mail.svg";
+import HROffcanvas from "../../../components/offcanvas/HROffcanvas";
+import Navbar from "../../../components/navbar/Navbar";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -38,7 +38,9 @@ const schema = yup.object().shape({
   address: yup.string().required("Address is required"),
 });
 
-function AddStudent() {
+function AddStudentNew(props) {
+  const [offcanvas, setOffcanvas] = useState(false);
+
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -46,20 +48,19 @@ function AddStudent() {
     setSelectedFile(event.target.files[0]);
   };
 
-  // const handleUpload = async() => {
-  //   const formData = new FormData();
-  //   formData.append("file", selectedFile);
+  const handleUpload = () => {
+    const formData = new FormData();
+    formData.append("file", selectedFile);
 
-  // await  axios
-  //     .post("http://localhost:8000/upload", formData)
-  //     .then((response) => {
-  //       return response
-  //       console.log(response.data, "uploaded");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error, "error");
-  //     });
-  // };
+    axios
+      .post("http://localhost:8000/upload", formData)
+      .then((response) => {
+        console.log(response.data, "uploaded");
+      })
+      .catch((error) => {
+        console.log(error, "error");
+      });
+  };
 
   const {
     handleSubmit,
@@ -72,9 +73,8 @@ function AddStudent() {
 
   const onSubmit = async (data) => {
     try {
-    
-    // const path= await  handleUpload();
-    // console.log(path);
+      console.log(data);
+      // await handleUpload();
       let res = await axios.post(
         "http://localhost:8000/student/addApplication",
         {
@@ -88,12 +88,11 @@ function AddStudent() {
 
           address: data.address,
           dob: data.dob,
-
         }
       );
       if (res.data.message == "added") {
         toast.success("Successfully Added");
-        // navigate("/hr")
+        navigate("/student")
       } else {
         toast.error("something went wrong");
       }
@@ -106,12 +105,17 @@ function AddStudent() {
   return (
     <div className={style.parent}>
       <div className={style.sidebar}>
-        <Navbar />
-        <HROffcanvas />
-        <SideBar panelName={"Admin"} />
+      <Navbar
+          func={() => {
+            setOffcanvas(!offcanvas);
+          }}
+        />
+        <SideBar panelName={props.name} />
+        <HROffcanvas status={offcanvas} />
+
       </div>
       <div className={style.form}>
-        <ProfileUser path="/hr/profile" />
+        {/* <ProfileUser path="/hr/profile" /> */}
         <div className={style.headers}>
           <div className={style.spans}>
             <span></span>
@@ -262,4 +266,4 @@ function AddStudent() {
   );
 }
 
-export default AddStudent;
+export default AddStudentNew;
