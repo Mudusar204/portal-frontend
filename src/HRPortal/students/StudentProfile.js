@@ -229,7 +229,7 @@ function EmployeeProfile(props) {
               </table>
               <div style={{marginTop:"30px"}} className={style2.btns}>
                 <button onClick={()=>{window.print()}}>Print</button>
-                <button>Download Info</button>
+                <button onClick={()=>{ window.history.back()}}>Back</button>
               </div>
             </div>
           </div>
